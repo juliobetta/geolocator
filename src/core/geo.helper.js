@@ -103,8 +103,13 @@ const geoHelper = {
         for (i = 0; i < comps.length; i += 1) {
             c = comps[i];
             if (c.types && c.types.length > 0) {
-                o[c.types[0]] = c.long_name;
-                o[c.types[0] + '_s'] = c.short_name;
+                if(c.types.includes('sublocality_level_1')) {
+                    o['neighborhood'] = c.long_name;
+                    o['neighborhood_s'] = c.short_name;
+                } else {
+                    o[c.types[0]] = c.long_name;
+                    o[c.types[0] + '_s'] = c.short_name;
+                }
             }
         }
 
@@ -129,6 +134,8 @@ const geoHelper = {
                 neighborhood: o.neighborhood
                     || o.administrative_area_level_5
                     || o.administrative_area_level_4
+                    || o.political
+                    || o.sublocality_level_1
                     || '',
                 town: o.sublocality || o.administrative_area_level_2 || '',
                 city: o.locality || o.administrative_area_level_1 || '',

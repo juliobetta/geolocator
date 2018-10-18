@@ -104,8 +104,13 @@ const geoHelper = {
             c = comps[i];
             if (c.types && c.types.length > 0) {
                 if(c.types.includes('sublocality_level_1')) {
-                    o['neighborhood'] = c.long_name;
-                    o['neighborhood_s'] = c.short_name;
+                    if(!o['neighborhood']) {
+                        o['neighborhood'] = c.long_name;
+                    }
+
+                    if(!o['neighborhood_s']) {
+                        o['neighborhood_s'] = c.short_name;
+                    }
                 } else {
                     o[c.types[0]] = c.long_name;
                     o[c.types[0] + '_s'] = c.short_name;
